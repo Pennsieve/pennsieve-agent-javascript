@@ -137,5 +137,3 @@ proto.protos.GetUserRequest.prototype.serializeBinary = function() {
 proto.protos.GetUserRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
-
-
