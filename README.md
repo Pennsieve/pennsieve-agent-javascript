@@ -14,7 +14,6 @@ Javascript agent for the Pennsieve uploads service
 2. Through npm package manager install required libraries. Root may be needed.
 
 ```bash
-    npm install async
     npm install @grpc/grpc-js
     npm install @grpc/proto-loader
 ```
