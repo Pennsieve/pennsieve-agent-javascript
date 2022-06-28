@@ -1,3 +1,10 @@
+/***
+
+Copyright (c) 2022 Patryk Orzechowski | Wagenaar Lab | University of Pennsylvania
+
+***/
+
+
 var PROTO_PATH = __dirname+'/protos/agent.proto'
 //var async = require('async');
 //var fs = require('fs');
@@ -29,149 +36,119 @@ class Pennsieve {
 
 
     // Manifest Endpoints
-    createManifest(request) {
-        this.client.createManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    createManifest(base_path, callback) {
+        var payload = { base_path : base_path };
+        this.client.createManifest(payload, callback);
     }
 
-    addToManifest(request) {
-        this.client.addToManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    addToManifest(manifest_id, base_path, targetBasePath='.') {
+        var payload = {
+                        manifest_id : manifest_id,
+                        base_path : base_path,
+                        targetBasePath : targetBasePath
+                      };
+        this.client.addToManifest(payload, callback);
     }
 
-    removeFromManifest(request) {
-        this.client.removeFromManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    removeFromManifest(manifest_id, file_id, callback) {
+        var payload = {
+                        manifest_id : manifest_id,
+                        file_id : file_id,
+                      };
+        this.client.removeFromManifest(payload, callback);
     }
 
-    deleteManifest(request) {
-        this.client.deleteManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    deleteManifest(manifest_id, callback) {
+        var payload = { manifest_id : manifest_id };
+        this.client.deleteManifest(payload, callback);
     }
 
-    resetManifest(request) {
-        this.client.resetManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    resetManifest(manifest_id, callback) {
+        var payload = { manifest_id : manifest_id };
+        this.client.resetManifest(payload, callback);
     }
 
-    listManifests(request) {
-        this.client.listManifests(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    listManifests(callback) {
+        this.client.listManifests({}, callback);
     }
 
-    listManifestFiles(request) {
-        this.client.listManifestFiles(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    listManifestFiles(callback, offset=0, limit=100) {
+        var payload = {
+                        manifest_id : manifest_id,
+                        offset : offset,
+                        limit : limit
+                      };
+        this.client.listManifestFiles(payload, callback);
     }
 
-    syncManifest(request) {
-        this.client.syncManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    syncManifest(manifest_id, callback) {
+        var payload = { manifest_id : manifest_id };
+        this.client.syncManifest(payload, callback);
     }
 
 
     // Upload Endpoints
-    uploadManifest(request) {
-        this.client.uploadManifest(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    uploadManifest(manifest_id, callback) {
+        var payload = { manifest_id : manifest_id };
+        this.client.uploadManifest(payload, callback);
     }
 
-    cancelUpload(request) {
-        this.client.cancelUpload(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    cancelUpload(manifest_id, cancel_all=true, callback) {
+        var payload = {
+                        manifest_id : manifest_id,
+                        cancel_all : cancel_all
+                      };
+        this.client.cancelUpload(payload, callback);
     }
 
 
     // Server Endpoints
-    subscribe(request) {
-        this.client.subscribe(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    subscribe(id, callback) {
+        var payload = { id : id };
+        this.client.subscribe(payload, callback);
     }
 
-    unsubscribe(request) {
-        this.client.unsubscribe(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    unsubscribe(id, callback) {
+        var payload = { id : id };
+        this.client.unsubscribe(payload, callback);
     }
 
 
     //User Endpoints
-    getUser(request) {
-        this.client.getUser(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    getUser(callback) {
+        this.client.getUser({}, callback);
     }
 
-    switchProfile(request) {
-        this.client.switchProfile(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    switchProfile(profile, callback) {
+        var payload = { profile : profile };
+        this.client.switchProfile(payload, callback);
     }
 
-    reAuthenticate(request) {
-        this.client.reAuthenticate(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    reAuthenticate(callback) {
+        this.client.reAuthenticate({}, callback);
     }
 
 
     // Datasets Endpoints
-    useDataset(request) {
-        this.client.useDataset(request, function(err, response) {
-            if (err)
-                throw err;
-            console.log(response)
-        });
+    useDataset(dataset_id, callback) {
+        var payload = { dataset_id : dataset_id };
+        this.client.useDataset(payload, callback);                ;
     }
 
 };
 
 
 
+logger = function(err, response) {
+    if (err)
+        throw err;
+    console.log(response)
+};
+
+
 p = new Pennsieve()
-p.getUser({})
-p.switchProfile({profile : 'pennsieve-agent'})
-p.listManifests({});
+p.getUser(callback=logger)
+p.switchProfile('pennsieve-agent', logger)
+p.listManifests(logger);
 //p.useDataset({dataset_id : 'N:dataset:...' })
 //p.createManifest({base_path : 'pennsieve.js'})
