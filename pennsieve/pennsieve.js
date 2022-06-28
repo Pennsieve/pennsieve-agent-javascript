@@ -72,7 +72,7 @@ class Pennsieve {
         this.client.listManifests({}, callback);
     }
 
-    listManifestFiles(callback, offset=0, limit=100) {
+    listManifestFiles(manifest_id, offset=0, limit=100, callback) {
         var payload = {
                         manifest_id : manifest_id,
                         offset : offset,
