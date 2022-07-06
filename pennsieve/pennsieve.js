@@ -41,7 +41,7 @@ class Pennsieve {
         this.client.createManifest(payload, callback);
     }
 
-    addToManifest(manifest_id, base_path, targetBasePath='.') {
+    addToManifest(manifest_id, base_path, targetBasePath='.', callback) {
         var payload = {
                         manifest_id : manifest_id,
                         base_path : base_path,
