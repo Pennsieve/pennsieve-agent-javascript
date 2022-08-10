@@ -36,8 +36,11 @@ class Pennsieve {
 
 
     // Manifest Endpoints
-    createManifest(base_path, callback) {
-        var payload = { base_path : base_path };
+    createManifest(base_path, target_base_path='.', callback) {
+        var payload = {
+            base_path : base_path,
+            target_base_path: target_base_path
+        };
         this.client.createManifest(payload, callback);
     }
 
