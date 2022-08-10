@@ -36,20 +36,22 @@ class Pennsieve {
 
 
     // Manifest Endpoints
-    createManifest(base_path, target_base_path='.', callback) {
+    createManifest(base_path, target_base_path='.', files = null, callback) {
         var payload = {
             base_path : base_path,
-            target_base_path: target_base_path
+            target_base_path: target_base_path,
+            files: files
         };
         this.client.createManifest(payload, callback);
     }
 
-    addToManifest(manifest_id, base_path, targetBasePath='.', callback) {
+    addToManifest(manifest_id, base_path, target_base_path='.', files = null, callback) {
         var payload = {
-                        manifest_id : manifest_id,
-                        base_path : base_path,
-                        targetBasePath : targetBasePath
-                      };
+            manifest_id : manifest_id,
+            base_path : base_path,
+            target_base_path : target_base_path,
+            files: files
+        };
         this.client.addToManifest(payload, callback);
     }
 
