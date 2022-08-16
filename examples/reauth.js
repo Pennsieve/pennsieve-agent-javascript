@@ -1,7 +1,9 @@
 var Pennsieve = require('../pennsieve/pennsieve.js');
-var ps = new Pennsieve();
 
-ps.getUser()
+const ps = new Pennsieve();
+
+console.log(`reAuthenticate()`)
+ps.reAuthenticate()
     .then(response => {
         console.log('success! response:')
         console.log(response)

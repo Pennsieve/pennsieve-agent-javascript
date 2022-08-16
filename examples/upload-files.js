@@ -39,6 +39,8 @@ console.log(fileList)
 console.log(`reAuthenticate()`)
 ps.reAuthenticate()
   .then(response => {
+    console.log('- response:')
+    console.log(response)
     console.log(`useDataset()`)
     return ps.useDataset(datasetId)
   })
