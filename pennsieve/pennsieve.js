@@ -153,13 +153,25 @@ class Pennsieve {
 
     // Server Endpoints  // TODO: figure out subscribe/unsubscribe
     subscribe(id, callback) {
-        var payload = { id : id };
-        this.client.subscribe(payload, callback);
+        let payload = {id: id};
+        let readable = this.client.subscribe(payload);
+        readable.on('data', (message) => {
+            callback('data', message)
+        });
+        readable.on('close', (message) => {
+            callback('close', message)
+        });
+        readable.on('end', (message) => {
+            callback('end', message)
+        });
+        readable.on('error', (message) => {
+            callback('error', message)
+        });
     }
 
     unsubscribe(id, callback) {
         var payload = { id : id };
-        this.client.unsubscribe(payload, callback);
+        this.client.unsubscribe(payload);
     }
 
 
